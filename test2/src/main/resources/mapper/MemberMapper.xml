@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.MemberDao">
+  
+  <select id="allMember" resultType="com.example.demo.vo.MemberVo">
+   select *
+   from member m, member_pic mp
+   where m.user_id = mp.user_id
+   order by m.member_no desc
+  </select>
+  
+  <select id="searchMember" resultType="com.example.demo.vo.MemberVo">
+  	select *
+  	from member m, member_pic mp
+   	where m.user_id = mp.user_id and
+   	m.member_no = #{member_no}
+  </select>
+  
+  <insert id="insertMember">
+  	insert into member values (seq_member_no.nextval, #{pwd},#{user_id},#{email},#{user_name})
+  </insert>
+  
+  <insert id="insertMember_Pic">
+  	insert into member_pic values (seq_member_pic_no.nextval,#{pic_name},#{user_id})
+  </insert>
+  
+  <select id="login" resultType="com.example.demo.vo.MemberVo">
+  	select *
+  	from member
+  	where user_id = #{user_id} and
+  		pwd = #{pwd}
+  </select>
+</mapper>
